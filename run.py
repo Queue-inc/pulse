@@ -77,7 +77,7 @@ for ref_im, ref_im_name in dataloader:
     else:
         print(ref_im)
         print(model)
-        out_im = model(ref_im,**kwargs)
+        out_im = model(ref_im=ref_im, **kwargs)
         for j,(HR,LR) in enumerate(out_im):
             for i in range(kwargs["batch_size"]):
                 toPIL(HR[i].cpu().detach().clamp(0, 1)).save(
