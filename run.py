@@ -56,7 +56,7 @@ out_path.mkdir(parents=True, exist_ok=True)
 dataloader = DataLoader(dataset, batch_size=kwargs["batch_size"])
 
 model = PULSE(cache_dir=kwargs["cache_dir"])
-model = DataParallel(model)
+model = DataParallel(model, device_ids=[1,2])
 
 toPIL = torchvision.transforms.ToPILImage()
 
