@@ -56,7 +56,7 @@ out_path.mkdir(parents=True, exist_ok=True)
 dataloader = DataLoader(dataset, batch_size=kwargs["batch_size"])
 
 model = PULSE(cache_dir=kwargs["cache_dir"])
-model = DataParallel(model, device_ids=[0,1])
+# model = DataParallel(model, device_ids=[0,1])
 
 toPIL = torchvision.transforms.ToPILImage()
 
@@ -75,8 +75,6 @@ for ref_im, ref_im_name in dataloader:
                 toPIL(LR[i].cpu().detach().clamp(0, 1)).save(
                     int_path_LR / f"{ref_im_name[i]}_{j:0{padding}}.png")
     else:
-        print(ref_im)
-        print(model)
         out_im = model(ref_im=ref_im, **kwargs)
         for j,(HR,LR) in enumerate(out_im):
             for i in range(kwargs["batch_size"]):
